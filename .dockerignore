@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+.expo
+.git
+assets
+node_modules
+server/node_modules
+server/dist
+App.tsx
+app.json
+src
+*.log
