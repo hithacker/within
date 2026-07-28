@@ -12,7 +12,12 @@ export type JournalAnalysisResponse = {
   supportMessage?: string;
 };
 
-export async function analyzeJournal(entries: JournalEntry[], currentEntryId: string, goals: string[]): Promise<JournalAnalysisResponse> {
+export async function analyzeJournal(
+  entries: JournalEntry[],
+  currentEntryId: string,
+  goals: string[],
+  collection: { id: string; version: string },
+): Promise<JournalAnalysisResponse> {
   const apiUrl = process.env.EXPO_PUBLIC_API_URL?.replace(/\/$/, '');
   if (!apiUrl) throw new Error('Journal analysis API is not configured');
 
@@ -27,7 +32,8 @@ export async function analyzeJournal(entries: JournalEntry[], currentEntryId: st
         entries: entries.slice(0, 20).map(({ id, createdAt, title, body, mood, lifeAreas }) => ({ id, createdAt, title, body, mood, lifeAreas })),
         currentEntryId,
         goals,
-        knowledgePack: 'within.relationships',
+        collectionId: collection.id,
+        collectionVersion: collection.version,
       }),
       signal: controller.signal,
     });
