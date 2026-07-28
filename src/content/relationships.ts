@@ -1,0 +1,20 @@
+import type { PublishedKnowledgePack } from '../types/knowledgePack';
+
+export const RELATIONSHIPS_PACK: PublishedKnowledgePack = {
+  schemaVersion: 1,
+  id: 'within.relationships',
+  version: '1.0.0',
+  title: 'Within Relationships',
+  summary: 'Structured reflection skills for pacing, boundaries, conflict, decisions, routines, and burnout.',
+  intendedAudience: 'Adults using a private journal for educational self-reflection and relationship skills.',
+  supportedLifeAreas: ['Dating', 'Relationships', 'Friends', 'Work', 'Family', 'Habits'],
+  modules: [
+    { id: 'pace_check', title: 'Check the pace', purpose: 'Separate excitement from the speed of your next commitment.', journalPrompts: ['What has changed since this relationship began?', 'What pace would feel sustainable?'], steps: ['List what has changed recently.', 'Name the pace that would feel sustainable.', 'Wait 24 hours before the next major commitment.'], completionCriteria: ['The user identifies one sustainable next step.'], contraindications: [] },
+    { id: 'boundary_builder', title: 'Build a clear boundary', purpose: 'Turn a private preference into a limit you can communicate and keep.', journalPrompts: ['What do you need to protect here?', 'What request would make the limit observable?'], steps: ['State what you need without explaining it away.', 'Make one specific request.', 'Decide what you will do if the limit is ignored.'], completionCriteria: ["The boundary describes the user's own action."], contraindications: ['Do not use ordinary boundary coaching when immediate safety or abuse support is needed.'] },
+    { id: 'decision_pause', title: 'Pause a pressured decision', purpose: 'Reduce urgency before making a choice that is difficult to reverse.', journalPrompts: ['What feels urgent?', 'Which consequences are difficult to reverse?'], steps: ['Name what feels urgent.', 'Separate reversible from irreversible consequences.', 'Choose a specific time to reconsider.'], completionCriteria: ['A reconsideration time is chosen.'], contraindications: [] },
+    { id: 'conflict_repair', title: 'Repair after conflict', purpose: 'Move from blame toward one observable issue and a concrete request.', journalPrompts: ['What happened without interpreting motives?', 'What impact can you take responsibility for?'], steps: ['Describe what happened without motive or character labels.', 'Name the impact on you.', 'Ask for one specific change.'], completionCriteria: ['The repair uses observable behavior rather than character labels.'], contraindications: ['Do not encourage direct repair when doing so could create immediate danger.'] },
+    { id: 'assumption_check', title: 'Check the story', purpose: 'Separate what you know from the meaning your mind added.', journalPrompts: ['What did you directly observe?', 'What meaning did you add?'], steps: ['Write only the observable facts.', 'Write your current interpretation.', 'List two other plausible explanations.'], completionCriteria: ['At least two plausible explanations are considered.'], contraindications: [] },
+    { id: 'routine_protection', title: 'Protect what keeps you grounded', purpose: 'Notice when a new priority begins displacing the life you value.', journalPrompts: ['What routine or relationship shifted?', 'Was that change intentional?'], steps: ['Name the routine or relationship that shifted.', 'Decide whether that change was intentional.', 'Put one protected activity back on your calendar.'], completionCriteria: ['One valued activity is deliberately restored or consciously released.'], contraindications: [] },
+    { id: 'burnout_check', title: 'Check your load', purpose: 'Compare commitments added with recovery removed.', journalPrompts: ['What did you add this week?', 'What recovery time disappeared?'], steps: ['List what you added this week.', 'List what recovery time disappeared.', 'Renegotiate or remove one commitment.'], completionCriteria: ['One commitment is renegotiated or recovery time is restored.'], contraindications: [] },
+  ],
+};
