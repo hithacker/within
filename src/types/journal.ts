@@ -13,8 +13,8 @@ export type JournalEntry = {
   themes?: string[];
 };
 
-export type PatternCategory = 'pacing' | 'boundaries' | 'balance' | 'conflict' | 'decision_loop' | 'burnout' | 'strength';
-export type SkillId = 'pace_check' | 'boundary_builder' | 'decision_pause' | 'conflict_repair' | 'assumption_check' | 'routine_protection' | 'burnout_check';
+export type PatternCategory = string;
+export type SkillId = string;
 
 export type PatternInsight = {
   id: string;
@@ -25,8 +25,8 @@ export type PatternInsight = {
   evidenceEntryIds: string[];
   goalConnection: string;
   skillId: SkillId;
-  knowledgePack: 'within.relationships';
-  knowledgePackVersion: '1.0.0';
+  collectionId: string;
+  collectionVersion: string;
   createdAt: string;
 };
 

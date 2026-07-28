@@ -1,45 +1,77 @@
 # Within
 
-An Expo React Native MVP for private daily journaling, evidence-backed pattern
-detection, and timely life-skills practice.
+An Expo React Native app for conscientious AI conversations about relationships,
+decisions, conflict, and personal growth.
+
+Within uses familiar threaded conversations but does not automatically accept the
+user's framing. Its response contract separates supplied facts, tentative
+interpretations, missing context, and direct challenges while preserving
+per-thread summaries and bounded cross-thread memory.
+
+See [docs/product-spec.md](docs/product-spec.md) for the product thesis and
+[docs/architecture.md](docs/architecture.md) for the implemented system.
 
 ## Run
 
 ```bash
 npm install
-npm start
-```
-
-Use `npm run ios`, `npm run android`, or `npm run web` for a specific target.
-
-Journal entries are persisted on-device. AI analysis is optional and uses a
-Gemini-backed API with structured output validation, evidence gating, rate
-limiting, provider safety settings, and deterministic crisis interception.
-
-```bash
-cp server/.env.example server/.env
 cp .env.example .env
-# Add GEMINI_API_KEY to server/.env, then:
-npm run start:api
-EXPO_PUBLIC_API_URL=http://localhost:4000 npm start
+cp server/.env.example server/.env
+# Configure the public Expo values in .env and GEMINI_API_KEY in server/.env.
+npm run dev
 ```
 
-For Expo Go on a physical device, replace `localhost` with the development
-machine's LAN address.
+Use `npm run ios`, `npm run android`, or `npm run web` for a specific target. For
+Expo Go on a physical device, use the development machine's LAN address instead of
+`localhost` in `EXPO_PUBLIC_API_URL`.
 
-The client sends a bounded recent journal history to `POST /v1/journal/analyze`.
-Provider keys remain on the server, and candidates without two valid source
-entries are discarded. Run `npm run test:api` for backend tests.
-
-## Deploy the API
-
-The API has a production Dockerfile and Fly configuration:
+The app works locally without an account. Optional Google or Apple sign-in syncs
+threads and memory through Supabase. Apply migrations before testing sync:
 
 ```bash
-fly secrets set GEMINI_API_KEY=... -a within-reflection-api-hiren
-fly deploy
+npx supabase db push
 ```
 
-The crisis router is a product safeguard, not a complete clinical safety system.
-Production launch still requires region-aware crisis resources, expert review,
-authentication, encrypted cloud persistence, tenant isolation, and audit logs.
+## API
+
+The primary endpoint is:
+
+```text
+POST /v1/conversations/respond
+```
+
+The client sends the active thread's latest 20 user and assistant messages, its
+bounded rolling summary, and typed durable memories. The server hybrid-selects
+relevant cross-thread memory, performs
+deterministic safety routing before Gemini, requests structured JSON, validates the
+response and source-linked memory updates, and returns a natural reply plus
+inspectable reasoning metadata.
+
+Provider keys remain server-side. Run verification with:
+
+```bash
+npm run typecheck
+npm run test:api
+npm run typecheck:studio
+```
+
+The previous journal analysis endpoint remains temporarily available for migration
+compatibility. The mobile app no longer uses it.
+
+## Authoring Studio
+
+The existing studio in `studio/` remains available for structured, versioned expert
+content. Its current collection schema was designed for journal analysis and must
+evolve into conversational reasoning skills before it is connected to the new
+conversation endpoint.
+
+The deployed studio is `https://within-authoring-studio-hiren.fly.dev`.
+
+## Deploy
+
+```bash
+fly deploy -a within-reflection-api-hiren
+```
+
+Production requires configured Fly secrets, applied Supabase migrations, regional
+crisis resources, evaluation cases, and security review.

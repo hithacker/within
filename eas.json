@@ -4,6 +4,16 @@
     "appVersionSource": "remote"
   },
   "build": {
+    "preview": {
+      "distribution": "internal",
+      "environment": "preview",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://within-reflection-api-hiren.fly.dev"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
     "simulator": {
       "ios": {
         "simulator": true
@@ -20,7 +30,9 @@
   },
   "submit": {
     "production": {
-      "ios": {}
+      "ios": {
+        "ascAppId": "6793037491"
+      }
     }
   }
 }

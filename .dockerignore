@@ -4,9 +4,13 @@
 .expo
 .git
 assets
+artifacts
+docs
 node_modules
 server/node_modules
 server/dist
+studio
+supabase
 App.tsx
 app.json
 src
