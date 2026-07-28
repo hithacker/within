@@ -8,7 +8,7 @@ primary_region = "bom"
   NODE_ENV = "production"
   PORT = "8080"
   GEMINI_MODEL = "gemini-2.5-flash"
-  ALLOWED_ORIGINS = "http://localhost:8081,http://localhost:19006"
+  ALLOWED_ORIGINS = "https://within-authoring-studio-hiren.fly.dev,http://localhost:3000,http://localhost:3001,http://localhost:8081,http://localhost:8082,http://localhost:8083,http://localhost:19006"
 
 [http_service]
   internal_port = 8080
