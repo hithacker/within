@@ -201,7 +201,7 @@ function ConversationHome({
     <View style={styles.empty}>
       <View style={styles.emptyMark}><Eye color={C.paper} size={27} strokeWidth={2.2} /></View>
       <Text style={styles.emptyTitle}>Talk it through.</Text>
-      <Text style={styles.emptySubtitle}>See what you might be missing.</Text>
+      <Text style={styles.emptySubtitle}>Start with anything. There is no form or right way to say it.</Text>
       {threads.length > 0 ? (
         <View style={styles.threadList}>
           <Text style={styles.threadListHeading}>YOUR CONVERSATIONS</Text>
@@ -230,6 +230,7 @@ function ConversationHome({
         </View>
       ) : null}
       <View style={styles.starters}>
+        <Text style={styles.startersLabel}>OR TRY A PROMPT</Text>
         {STARTERS.map((starter) => (
           <Pressable key={starter} onPress={() => onStarter(starter)} style={({ pressed }) => [styles.starter, pressed && styles.pressed]}>
             <MessageCircle color={C.green} size={18} />
@@ -865,7 +866,7 @@ function WithinApp() {
               accessibilityLabel="Message Within"
               value={input}
               onChangeText={setInput}
-              placeholder={showConversation ? 'What is on your mind?' : 'Start a new conversation...'}
+              placeholder="Share whatever is on your mind..."
               placeholderTextColor={C.faint}
               multiline
               maxLength={8_000}
@@ -982,6 +983,7 @@ const styles = StyleSheet.create({
   resumeMeta: { color: C.muted, fontSize: 11, lineHeight: 15, marginTop: 2 },
   resumeChevron: { transform: [{ rotate: '180deg' }] },
   starters: { width: '100%', gap: 10 },
+  startersLabel: { color: C.faint, fontSize: 10, lineHeight: 14, fontWeight: '800', marginLeft: 2 },
   starter: { minHeight: 54, borderWidth: 1, borderColor: C.line, backgroundColor: C.paper, borderRadius: 7, paddingHorizontal: 16, paddingVertical: 13, flexDirection: 'row', alignItems: 'center', gap: 12 },
   starterText: { flex: 1, color: C.ink, fontSize: 14, lineHeight: 20, fontWeight: '600' },
   messageWrap: { flexDirection: 'row', alignItems: 'flex-start', gap: 9, maxWidth: '94%' },
