@@ -127,4 +127,23 @@ describe('memory normalization', () => {
     assert.equal(result.memoryUpserts[0]!.createdAt, createdAt);
     assert.equal(result.memoryUpserts[0]!.updatedAt, '2026-07-28T10:05:00.000Z');
   });
+
+  it('strips a follow-up question when the user asked for answers', () => {
+    const result = normalizeConversationOutput({
+      ...output([]),
+      reply: 'The accusations may be about distance rather than proof. What do you think might help?',
+      followUpQuestion: 'What do you think might help?',
+    }, {
+      ...request,
+      messages: [{
+        id: 'new-message',
+        role: 'user',
+        content: 'Dude like i need andwers also. U cant keep asking me',
+        createdAt,
+      }],
+    });
+
+    assert.equal(result.followUpQuestion, '');
+    assert.equal(result.reply, 'The accusations may be about distance rather than proof.');
+  });
 });

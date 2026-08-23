@@ -103,14 +103,15 @@ describe('conversation prompt', () => {
     assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /Do not create both a person and relationship record/i);
   });
 
-  it('asks the model to help a user feel heard before seeking more detail', () => {
-    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /Reflect the feeling.*before analyzing, advising, challenging, or asking/i);
-    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /first user turn, prioritize being present and understood/i);
-    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /Do not merely repeat, summarize, or relabel/i);
+  it('requires a working take and forbids answering a request for answers with another question', () => {
+    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /A useful reply gives a working take/i);
+    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /Do not answer a request for answers.*with reflective listening/i);
+    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /leave followUpQuestion empty and give a direct working conclusion/i);
     assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /Avoid clinical-sounding templates/i);
     assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /Ask no more than one question in the entire user-facing reply/i);
-    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /rather than asking them to define their words or answer multiple parts/i);
-    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /On a first turn, use two attuned sentences before any question/i);
+    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /Do not ask how they feel, what they think might help/i);
+    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /Once the user has described a situation, give a working take/i);
+    assert.match(CONSCIENTIOUS_CONVERSATION_PROMPT, /Lead with the useful point, not a feeling recap/i);
   });
 });
 
