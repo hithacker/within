@@ -55,18 +55,6 @@ npm run test:api
 npm run typecheck:studio
 ```
 
-The previous journal analysis endpoint remains temporarily available for migration
-compatibility. The mobile app no longer uses it.
-
-## Authoring Studio
-
-The existing studio in `studio/` remains available for structured, versioned expert
-content. Its current collection schema was designed for journal analysis and must
-evolve into conversational reasoning skills before it is connected to the new
-conversation endpoint.
-
-The deployed studio is `https://within-authoring-studio-hiren.fly.dev`.
-
 ## Deploy
 
 ```bash
