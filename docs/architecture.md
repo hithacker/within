@@ -98,7 +98,10 @@ followUpQuestion
 
 The natural reply is always visible. The mobile UI exposes the structured fields
 under "Why this response?" so users can inspect how fact, inference, uncertainty,
-and challenge were separated.
+and challenge were separated. When the latest user message asks for answers or
+objects to questions, the API clears `followUpQuestion` and drops a trailing
+question from the reply so a request for a take cannot be answered with another
+prompt.
 
 The current contract is a generation constraint, not a proof that the reasoning is
 correct. Evaluation cases and deterministic grounding checks are required before

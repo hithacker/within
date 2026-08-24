@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
 import type { AppConfig } from './config.js';
 import type { ConversationModel, JournalModel } from './gemini.js';
+import { applyDirectAnswerPreference } from './direct-answer.js';
 import { classifySafety, safetyReply } from './safety.js';
 import { conversationRequestSchema, journalAnalysisRequestSchema } from './schema.js';
 import type { AccountService } from './account.js';
@@ -105,7 +106,7 @@ export function createApp({ config, model, conversationModel, accountService, kn
     }
 
     try {
-      const result = await conversationModel.respond(parsed.data);
+      const result = applyDirectAnswerPreference(await conversationModel.respond(parsed.data), parsed.data);
       response.json({ response: result, safetyAction: 'continue' });
     } catch (error) {
       next(error);

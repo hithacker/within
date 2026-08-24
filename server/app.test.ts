@@ -216,6 +216,36 @@ describe('Within API', () => {
     assert.equal(received?.messages[0]?.role, 'user');
   });
 
+  it('does not return another question when the user asked for answers', async () => {
+    const conversationModel: ConversationModel = {
+      respond: async () => ({
+        reply: 'It sounds like the accusations have been deeply distressing. What do you think might help?',
+        stance: 'explore',
+        knownFacts: ['The user said their wife suspects an affair or crush.'],
+        interpretations: ['The user wants a working take, not another prompt.'],
+        missingContext: [],
+        directChallenge: '',
+        followUpQuestion: 'What do you think might help?',
+        summary: { text: 'The user is distressed by accusations about a friendship.', updatedAt: '2026-07-28T10:03:00.000Z' },
+        memoryUpserts: [],
+      }),
+    };
+    const response = await request(createApp({ config, conversationModel }))
+      .post('/v1/conversations/respond')
+      .send({
+        messages: [{
+          id: 'message-2',
+          role: 'user',
+          content: 'Dude like i need andwers also. U cant keep asking me',
+          createdAt: '2026-07-28T10:02:00.000Z',
+        }],
+      })
+      .expect(200);
+
+    assert.equal(response.body.response.followUpQuestion, '');
+    assert.equal(response.body.response.reply, 'It sounds like the accusations have been deeply distressing.');
+  });
+
   it('does not invoke the model for an unpublished collection', async () => {
     const model: JournalModel = { analyze: async () => { throw new Error('must not run'); } };
     const knowledgePackService: KnowledgePackService = { getPublishedPack: async () => null };

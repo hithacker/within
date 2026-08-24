@@ -1,3 +1,4 @@
+import { applyDirectAnswerPreference } from './direct-answer.js';
 import {
   conversationResponseSchema,
   type ConversationModelOutput,
@@ -116,7 +117,7 @@ export function normalizeConversationOutput(
   });
 
   return conversationResponseSchema.parse({
-    ...output,
+    ...applyDirectAnswerPreference(output, request),
     summary: { text: output.summary, updatedAt: now },
     memoryUpserts,
   });

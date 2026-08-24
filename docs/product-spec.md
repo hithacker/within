@@ -121,7 +121,8 @@ response must be produced from a structured reasoning contract:
 - **Interpretations:** plausible readings, explicitly marked as uncertain;
 - **Missing:** information that could materially change the conclusion;
 - **Challenge:** a specific contradiction or neglected perspective, when supported;
-- **Next question:** at most one question that advances understanding.
+- **Next question:** at most one question, and only when a missing fact would
+  change the answer. Leave it empty when the user wants a take.
 
 The app may expose a compact "Why this response?" view so users can inspect this
 separation without interrupting the conversation.
@@ -136,6 +137,10 @@ Example:
 This response neither excuses the missed deadline nor accepts a character judgment
 as the only explanation.
 
+When the user asks for answers, advice, or objects to being questioned, the reply
+must give a working conclusion from the available context. Reflective listening
+and another question are not a valid response to that request.
+
 ## 6. Core Loop
 
 1. **Talk:** The user describes an event, belief, decision, or concern naturally.
@@ -143,8 +148,8 @@ as the only explanation.
    available in the supplied conversation.
 3. **Test:** Within checks the framing for missing context, unsupported certainty,
    contradictions, alternative perspectives, and goal-strategy-outcome mismatch.
-4. **Respond:** Within gives a concise, humane response with one useful challenge
-   or question.
+4. **Respond:** Within gives a concise, humane working answer with one useful
+   challenge when supported. A question is optional.
 5. **Remember:** The system extracts only durable context: people, goals,
    unresolved tensions, commitments, predictions, outcomes, and user corrections.
 6. **Revisit:** Later conversations retrieve relevant context and compare new events
@@ -236,6 +241,7 @@ Rules:
 - A challenge must target reasoning or behaviour, not identity.
 - The assistant must not flatter, reflexively agree, or manufacture opposition.
 - Directness should scale with evidence and impact.
+- When the user asks for answers, give a working take rather than another question.
 - The model must not claim access to events, people, or data outside the request.
 
 ## 10. Safety and Care Boundaries
